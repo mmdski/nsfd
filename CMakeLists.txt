@@ -40,7 +40,7 @@ endif()
 set(NSFD_SRCS
   src/nsfd.c
   src/ns_sf.c
-  src/ns_fv.c
+  src/ns_vf.c
 )
 add_library(nsfd ${NSFD_SRCS})
 add_library(nsfd::nsfd ALIAS nsfd)
@@ -62,8 +62,8 @@ if(nsfd_BUILD_TESTS)
     set_tests_properties(${${test_name}.test-list} PROPERTIES ENVIRONMENT "${TEST_ENV}")
   endmacro()
 
-  add_nsfd_test(ns_fs.test src/ns_fs.test.cpp)
-  add_nsfd_test(ns_fv.test src/ns_fv.test.cpp)
+  add_nsfd_test(ns_sf.test src/ns_sf.test.cpp)
+  add_nsfd_test(ns_vf.test src/ns_vf.test.cpp)
 endif()
 
 if(nsfd_BUILD_APP)

@@ -40,10 +40,10 @@ typedef struct ns_vf ns_vf;
 
 size_t ns_vf_mem_size(ns_d_shape shape);
 ns_vf *ns_vf_init(ns_d_shape shape, ns_vf *vfp, ns_vec init_val);
-ns_d_shape ns_fv_d_shape(const ns_vf *vfp);
-ns_g_shape ns_fv_g_shape(const ns_vf *vfp);
-ns_vec *ns_fv_get(ns_vf *vfp, size_t i, size_t j);
-void ns_fv_set(ns_vf *vfp, size_t i, size_t j, real x, real y);
-void ns_fv_values(const ns_vf *vfp, real *x_values, real *y_values);
+ns_d_shape ns_vf_d_shape(const ns_vf *vfp);
+ns_g_shape ns_vf_g_shape(const ns_vf *vfp);
+ns_vec *ns_vf_get(ns_vf *vfp, size_t i, size_t j);
+void ns_vf_set(ns_vf *vfp, size_t i, size_t j, real x, real y);
+void ns_vf_values(const ns_vf *vfp, real *x_values, real *y_values);
 
 #endif

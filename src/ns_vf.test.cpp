@@ -9,7 +9,7 @@ namespace {
 TEST(ns_fv, init) {
   ns_d_shape shape = {10, 5};
   size_t field_size = ns_vf_mem_size(shape);
-  auto* vfp = (ns_fv*)std::malloc(field_size);
+  auto* vfp = (ns_vf*)std::malloc(field_size);
   if (!vfp) {
     std::free(vfp);  // keep the linter from complaining
     ASSERT_TRUE(vfp);
@@ -21,14 +21,14 @@ TEST(ns_fv, init) {
     ASSERT_TRUE(vfp);
   }
 
-  ns_d_shape field_shape = ns_fv_d_shape(vfp);
+  ns_d_shape field_shape = ns_vf_d_shape(vfp);
   ASSERT_EQ(shape.imax, field_shape.imax);
   ASSERT_EQ(shape.jmax, field_shape.jmax);
 
   for (size_t i = 1; i <= shape.imax; ++i) {
     for (size_t j = 1; j <= shape.jmax; ++j) {
-      ASSERT_EQ(init_val.x, ns_fv_get(vfp, i, j)->x);
-      ASSERT_EQ(init_val.y, ns_fv_get(vfp, i, j)->y);
+      ASSERT_EQ(init_val.x, ns_vf_get(vfp, i, j)->x);
+      ASSERT_EQ(init_val.y, ns_vf_get(vfp, i, j)->y);
     }
   }
 
