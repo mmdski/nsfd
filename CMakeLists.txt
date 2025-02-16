@@ -7,8 +7,9 @@ set(CMAKE_C_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-option(nsfd_BUILD_TESTS "Build tests" NO)
+option(nsfd_BUILD_APP "Build application NO")
 option(nsfd_BUILD_EXAMPLES "Build examples" NO)
+option(nsfd_BUILD_TESTS "Build tests" NO)
 
 if(PROJECT_IS_TOP_LEVEL)
   include(cmake/Sanitizers.cmake)
@@ -38,8 +39,8 @@ endif()
 
 set(NSFD_SRCS
   src/nsfd.c
-  src/ns_s_field.c
-  src/ns_v_field.c
+  src/ns_sf.c
+  src/ns_fv.c
 )
 add_library(nsfd ${NSFD_SRCS})
 add_library(nsfd::nsfd ALIAS nsfd)
@@ -61,8 +62,11 @@ if(nsfd_BUILD_TESTS)
     set_tests_properties(${${test_name}.test-list} PROPERTIES ENVIRONMENT "${TEST_ENV}")
   endmacro()
 
-  add_nsfd_test(nsfd_s_field.test src/ns_s_field.test.cpp)
-  add_nsfd_test(nsfd_v_field.test src/ns_v_field.test.cpp)
+  add_nsfd_test(ns_fs.test src/ns_fs.test.cpp)
+  add_nsfd_test(ns_fv.test src/ns_fv.test.cpp)
+endif()
+
+if(nsfd_BUILD_APP)
 endif()
 
 if(nsfd_BUILD_EXAMPLES)

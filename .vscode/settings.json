@@ -4,16 +4,24 @@
     "delt",
     "delx",
     "dely",
+    "dkms",
     "duvdx",
     "duvdy",
+    "dylib",
     "endmacro",
     "googletest",
     "gtest",
     "iterpressure",
+    "IWYU",
     "jmax",
     "MSVC",
+    "Noexcept",
     "nsfd",
+    "pycache",
     "SRCS",
+    "STRINGIZE",
+    "symvers",
+    "Verilog",
     "Wconversion",
     "Werror",
     "Wextra",
@@ -22,11 +30,13 @@
     "xlength",
     "yfrac",
     "ylength"
-  ],
+],
   "editor.tabSize": 4,
   "editor.indentSize": 2,
+  "C_Cpp.intelliSenseEngine": "disabled",
   "C_Cpp.codeAnalysis.clangTidy.enabled": true,
   "cmake.configureSettings": {
+    "nsfd_BUILD_APP": true,
     "nsfd_BUILD_EXAMPLES": true,
     "nsfd_BUILD_TESTS": true,
     "INSTALL_GTEST": false,
@@ -34,5 +44,7 @@
     "ENABLE_ASAN": true,
     "ENABLE_LSAN": true,
     "ENABLE_UBSAN": true
-  }
+},
+"sonarlint.pathToCompileCommands": "${workspaceFolder}/build/compile_commands.json",
+"sonarlint.disableTelemetry": true
 }

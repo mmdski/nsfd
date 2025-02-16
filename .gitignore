@@ -64,3 +64,5 @@ __pycache__/
 
 # build directories
 *build*/
+
+.cache

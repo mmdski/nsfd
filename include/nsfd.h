@@ -5,46 +5,45 @@
 
 typedef double real;
 
-size_t ns_real_size(void);
-
-typedef struct {
-  real x;
-  real y;
-} NSVector;
+size_t ns_real_mem_size(void);
 
 // shape of internal domain
 typedef struct {
   size_t imax;
   size_t jmax;
-} NSDomainShape;
+} ns_d_shape;
 
 // shape of grid, including boundary cells
 typedef struct {
   size_t nx;
   size_t ny;
-} NSGridShape;
+} ns_g_shape;
 
 // scalar field
-typedef struct NSSField NSSField;
+typedef struct ns_sf ns_sf;
 
-size_t ns_s_field_mem_size(NSDomainShape shape);
-NSSField *ns_s_field_init(NSDomainShape shape, NSSField *sfp, real init_val);
-NSDomainShape ns_s_field_shape(NSSField *sfp);
-NSGridShape ns_s_field_grid_shape(NSSField *sfp);
-real *ns_s_field_get(NSSField *sfp, size_t i, size_t j);
-void ns_s_field_set(NSSField *sfp, size_t i, size_t j, real value);
-void ns_s_field_values(NSSField *sfp, real *values);
+size_t ns_sf_mem_size(ns_d_shape shape);
+ns_sf *ns_sf_init(ns_d_shape shape, ns_sf *sfp, real init_val);
+ns_d_shape ns_sf_d_shape(const ns_sf *sfp);
+ns_g_shape n_sf_g_shape(const ns_sf *sfp);
+real *ns_sf_get(ns_sf *sfp, size_t i, size_t j);
+void ns_sf_set(ns_sf *sfp, size_t i, size_t j, real value);
+void ns_sf_values(const ns_sf *sfp, real *values);
+
+typedef struct {
+  real x;
+  real y;
+} ns_vec;
 
 // vector field
-typedef struct NSVField NSVField;
+typedef struct ns_vf ns_vf;
 
-size_t ns_v_field_mem_size(NSDomainShape shape);
-NSVField *ns_v_field_init(NSDomainShape shape, NSVField *vfp,
-                          NSVector init_val);
-NSDomainShape ns_v_field_shape(NSVField *vfp);
-NSGridShape ns_v_field_grid_shape(NSVField *vfp);
-NSVector *ns_v_field_get(NSVField *vfp, size_t i, size_t j);
-void ns_v_field_set(NSVField *vfp, size_t i, size_t j, real x, real y);
-void ns_v_field_values(NSVField *vfp, real *x_values, real *y_values);
+size_t ns_vf_mem_size(ns_d_shape shape);
+ns_vf *ns_vf_init(ns_d_shape shape, ns_vf *vfp, ns_vec init_val);
+ns_d_shape ns_fv_d_shape(const ns_vf *vfp);
+ns_g_shape ns_fv_g_shape(const ns_vf *vfp);
+ns_vec *ns_fv_get(ns_vf *vfp, size_t i, size_t j);
+void ns_fv_set(ns_vf *vfp, size_t i, size_t j, real x, real y);
+void ns_fv_values(const ns_vf *vfp, real *x_values, real *y_values);
 
 #endif
