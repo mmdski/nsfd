@@ -6,49 +6,41 @@
 #include <nsfd.h>
 
 #include "ns_chk.h"
-#include "ns_grid.h"
+#include "ns_geom.h"
 
-size_t ns_sf_mem_size(ns_d_shape shape) {
+size_t ns_sf_mem_size(const ns_geom_data *data_p) {
+  chk_null(data_p);
   return chk_size_t_add(sizeof(ns_sf),
-                        chk_size_t_mul(sizeof(real), grid_calc_size(shape)));
+                        chk_size_t_mul(sizeof(real), geom_size(data_p)));
 }
 
-ns_sf *ns_sf_init(ns_d_shape shape, ns_sf *sfp, real init_val) {
-  if (shape.imax == 0 || shape.jmax == 0) return sfp;
-  if (!sfp) return sfp;
-  sfp->shape = shape;
-  sfp->size = grid_calc_size(sfp->shape);
-  for (size_t i = 0; i < sfp->size; ++i) {
+ns_sf *ns_sf_init(ns_geom_data *data_p, ns_sf *sfp, real init_val) {
+  chk_null(data_p);
+  chk_null(sfp);
+  if (data_p->imax == 0 || data_p->jmax == 0) return sfp;
+  size_t grid_size = geom_size(data_p);
+  for (size_t i = 0; i < grid_size; ++i) {
     sfp->field[i] = init_val;
   }
   return sfp;
 }
 
-ns_d_shape ns_sf_d_shape(const ns_sf *sfp) {
-  if (!sfp) return (ns_d_shape){0};
-  return sfp->shape;
-}
-
-ns_g_shape n_sf_g_shape(const ns_sf *sfp) {
-  if (!sfp) return (ns_g_shape){0};
-  return (ns_g_shape){sfp->shape.imax + 2, sfp->shape.jmax + 2};
+void ns_sf_geom_data(const ns_sf *sfp, ns_geom_data *data_p) {
+  chk_null(sfp);
+  chk_null(data_p);
+  geom_data_copy(&(sfp->geom_data), data_p);
 }
 
 real *ns_sf_get(ns_sf *sfp, size_t i, size_t j) {
-  if (!sfp) return NULL;
-  chk_indices(sfp->shape, i, j);
-  return &sfp->field[i * (sfp->shape.jmax + 2) + j];
-}
-
-void ns_sf_set(ns_sf *sfp, size_t i, size_t j, real value) {
-  if (!sfp) return;
-  chk_indices(sfp->shape, i, j);
-  sfp->field[i * (sfp->shape.jmax + 2) + j] = value;
+  chk_null(sfp);
+  geom_chk_idx(&(sfp->geom_data), i, j);
+  return &sfp->field[GEOM_IDX(sfp->geom_data, i, j)];
 }
 
 void ns_sf_values(const ns_sf *sfp, real *values) {
   if (!values) return;
-  for (size_t i = 0; i < sfp->size; ++i) {
+  size_t grid_size = geom_size(&(sfp->geom_data));
+  for (size_t i = 0; i < grid_size; ++i) {
     values[i] = sfp->field[i];
   }
 }

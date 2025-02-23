@@ -11,23 +11,17 @@ size_t ns_real_mem_size(void);
 typedef struct {
   size_t imax;
   size_t jmax;
-} ns_d_shape;
-
-// shape of grid, including boundary cells
-typedef struct {
-  size_t nx;
-  size_t ny;
-} ns_g_shape;
+  real xlength;
+  real ylength;
+} ns_geom_data;
 
 // scalar field
 typedef struct ns_sf ns_sf;
 
-size_t ns_sf_mem_size(ns_d_shape shape);
-ns_sf *ns_sf_init(ns_d_shape shape, ns_sf *sfp, real init_val);
-ns_d_shape ns_sf_d_shape(const ns_sf *sfp);
-ns_g_shape n_sf_g_shape(const ns_sf *sfp);
+size_t ns_sf_mem_size(const ns_geom_data *data_p);
+ns_sf *ns_sf_init(ns_geom_data *data_p, ns_sf *sfp, real init_val);
+void ns_sf_geom_data(const ns_sf *sfp, ns_geom_data *data_p);
 real *ns_sf_get(ns_sf *sfp, size_t i, size_t j);
-void ns_sf_set(ns_sf *sfp, size_t i, size_t j, real value);
 void ns_sf_values(const ns_sf *sfp, real *values);
 
 typedef struct {
@@ -38,12 +32,10 @@ typedef struct {
 // vector field
 typedef struct ns_vf ns_vf;
 
-size_t ns_vf_mem_size(ns_d_shape shape);
-ns_vf *ns_vf_init(ns_d_shape shape, ns_vf *vfp, ns_vec init_val);
-ns_d_shape ns_vf_d_shape(const ns_vf *vfp);
-ns_g_shape ns_vf_g_shape(const ns_vf *vfp);
+size_t ns_vf_mem_size(const ns_geom_data *data_p);
+ns_vf *ns_vf_init(const ns_geom_data *data_p, ns_vf *vfp, ns_vec init_val);
+ns_geom_data ns_vf_d_shape(const ns_vf *vfp);
 ns_vec *ns_vf_get(ns_vf *vfp, size_t i, size_t j);
-void ns_vf_set(ns_vf *vfp, size_t i, size_t j, real x, real y);
 void ns_vf_values(const ns_vf *vfp, real *x_values, real *y_values);
 
 #endif

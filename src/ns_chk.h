@@ -30,9 +30,4 @@ static inline size_t chk_size_t_mul(size_t a, size_t b) {
   return a * b;
 }
 
-static inline void chk_indices(ns_d_shape shape, size_t i, size_t j) {
-  assert(i < shape.imax + 2);
-  assert(j < shape.jmax + 2);
-}
-
 #endif

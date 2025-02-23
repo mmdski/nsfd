@@ -7,8 +7,7 @@
 
 // vector field structure definition
 struct ns_vf {
-  size_t size;
-  ns_d_shape shape;
+  ns_geom_data geom_data;
   ns_vec field[];
 };
 

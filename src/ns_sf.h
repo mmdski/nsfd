@@ -7,8 +7,7 @@
 
 // scalar field structure definition
 struct ns_sf {
-  size_t size;
-  ns_d_shape shape;
+  ns_geom_data geom_data;
   real field[];
 };
 
