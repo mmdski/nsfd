@@ -38,7 +38,7 @@ if(nsfd_BUILD_TESTS)
 endif()
 
 set(NSFD_SRCS
-  src/nsfd.c
+  src/ns_real.c
   src/ns_sf.c
   src/ns_vf.c
 )

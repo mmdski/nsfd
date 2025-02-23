@@ -1,20 +1,23 @@
+#include "ns_sf.h"
+
 #include <assert.h>
 #include <stdio.h>
 
 #include <nsfd.h>
 
-#include "nsfd_internal.h"
+#include "ns_chk.h"
+#include "ns_grid.h"
 
 size_t ns_sf_mem_size(ns_d_shape shape) {
   return chk_size_t_add(sizeof(ns_sf),
-                        chk_size_t_mul(sizeof(real), calc_grid_size(shape)));
+                        chk_size_t_mul(sizeof(real), grid_calc_size(shape)));
 }
 
 ns_sf *ns_sf_init(ns_d_shape shape, ns_sf *sfp, real init_val) {
   if (shape.imax == 0 || shape.jmax == 0) return sfp;
   if (!sfp) return sfp;
   sfp->shape = shape;
-  sfp->size = calc_grid_size(sfp->shape);
+  sfp->size = grid_calc_size(sfp->shape);
   for (size_t i = 0; i < sfp->size; ++i) {
     sfp->field[i] = init_val;
   }
