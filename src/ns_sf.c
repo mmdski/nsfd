@@ -14,10 +14,9 @@ size_t ns_sf_mem_size(const ns_geom_data *data_p) {
                         chk_size_t_mul(sizeof(real), geom_size(data_p)));
 }
 
-ns_sf *ns_sf_init(ns_geom_data *data_p, ns_sf *sfp, real init_val) {
+ns_sf *ns_sf_init(const ns_geom_data *data_p, ns_sf *sfp, real init_val) {
   chk_null(data_p);
   chk_null(sfp);
-  if (data_p->imax == 0 || data_p->jmax == 0) return sfp;
   size_t grid_size = geom_size(data_p);
   for (size_t i = 0; i < grid_size; ++i) {
     sfp->field[i] = init_val;
